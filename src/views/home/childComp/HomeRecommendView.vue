@@ -30,7 +30,9 @@ export default {
 .recommend {
   display: flex;
   width: 100%;
-  padding: 0.714286rem 0;
+  padding: 10px 0;
+  font-size: 1rem;
+  background-color: var(--color-background);
   border-bottom: 10px solid rgba(100, 100, 100, 0.1);
 }
 
@@ -39,6 +41,9 @@ export default {
   text-align: center;
 }
 .recommend img {
-  width: 4.285714rem;
+  width: 90%;
+}
+.recommend a {
+  color: var(--color-text);
 }
 </style>

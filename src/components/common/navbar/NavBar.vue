@@ -20,17 +20,21 @@ export default {
 
 <style scoped>
 .nav-bar {
+  position: fixed;
   display: flex;
+  top: 0;
+  width: 100%;
   height: 44px;
   line-height: 44px;
-  font-size: 14px;
-  color: var(--color-text);
+  font-size: 1rem;
+  color: #fff;
   text-align: center;
-  box-shadow: 0 1px 1px rgba(100, 100, 100, 0.1);
+  box-shadow: 0 0.04rem 0.04rem rgba(100, 100, 100, 0.1);
+  z-index: 2;
 }
 .left,
 .right {
-  width: 44px;
+  width: 1.76rem;
 }
 .center {
   flex: 1;

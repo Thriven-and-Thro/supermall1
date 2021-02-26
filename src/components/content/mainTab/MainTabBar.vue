@@ -3,10 +3,10 @@
     <tab-bar>
       <tab-bar-item path="/home" activeColor="#C84275">
         <template v-slot:item-icon>
-          <img src="~assets/img/首页.png" alt="" />
+          <img src="~assets/img/tabbar/首页.png" alt="" />
         </template>
         <template v-slot:item-icon-active>
-          <img src="~assets/img/首页(1).png" alt="" />
+          <img src="~assets/img/tabbar/首页(1).png" alt="" />
         </template>
         <template v-slot:item-text>
           <div>首页</div>
@@ -14,10 +14,10 @@
       </tab-bar-item>
       <tab-bar-item path="/notice" activeColor="#C84275">
         <template v-slot:item-icon>
-          <img src="~assets/img/分类.png" alt="" />
+          <img src="~assets/img/tabbar/分类.png" alt="" />
         </template>
         <template v-slot:item-icon-active>
-          <img src="~assets/img/分类(1).png" alt="" />
+          <img src="~assets/img/tabbar/分类(1).png" alt="" />
         </template>
         <template v-slot:item-text>
           <div>分类</div>
@@ -25,10 +25,10 @@
       </tab-bar-item>
       <tab-bar-item path="/profile" activeColor="#C84275">
         <template v-slot:item-icon>
-          <img src="~assets/img/购物车car.png" alt="" />
+          <img src="~assets/img/tabbar/购物车car.png" alt="" />
         </template>
         <template v-slot:item-icon-active>
-          <img src="~assets/img/购物车car(1).png" alt="" />
+          <img src="~assets/img/tabbar/购物车car(1).png" alt="" />
         </template>
         <template v-slot:item-text>
           <div>购物车</div>
@@ -36,10 +36,10 @@
       </tab-bar-item>
       <tab-bar-item path="/mine" activeColor="#C84275">
         <template v-slot:item-icon>
-          <img src="~assets/img/我的.png" alt="" />
+          <img src="~assets/img/tabbar/我的.png" alt="" />
         </template>
         <template v-slot:item-icon-active>
-          <img src="~assets/img/我的(1).png" alt="" />
+          <img src="~assets/img/tabbar/我的(1).png" alt="" />
         </template>
         <template v-slot:item-text>
           <div>我的</div>
@@ -61,12 +61,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import "~assets/css/base.css";
 
 #main_tab_bar img {
-  width: 25px;
-  height: 25px;
+  width: 1.8rem;
+  height: 1.8rem;
   vertical-align: middle;
 }
 </style>

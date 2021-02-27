@@ -45,6 +45,6 @@ export default {
 .tabar_text {
   flex: 1;
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 </style>

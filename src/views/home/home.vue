@@ -14,13 +14,13 @@
       @pullingUp="loadMore"
     >
       <!-- 绑定数据，动态获取 -->
-      <home-swiper :banners="banners" />
+      <home-swiper :banners="banners" @swiperImgLoad="swiperLoad" />
       <home-recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control
-        class="tar_control"
         :titles="['流行', '新款', '精选']"
         @item_click="item_click"
+        ref="tabControl"
       />
       <!-- 参数太长可封装为计算属性 -->
       <good-list :goods="showGoods" />
@@ -44,6 +44,7 @@ import BackTop from "../../components/content/backTop/BackTop.vue";
 
 //1.引入封装的网络请求
 import { getHomeMulitData, getHomeGoods } from "network/home.js";
+import { debounce } from "common/utils.js";
 
 export default {
   name: "home",
@@ -86,10 +87,16 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
+  mounted() {
+    // 事件总线
+    const refresh = debounce(this.$refs.scroll.refresh, 500);
+    this.$bus.$on("itemImageLoad", () => {
+      refresh();
+    });
+  },
 
   methods: {
     // 事件
-
     // 通过数字转换实现监听
     item_click(index) {
       switch (index) {
@@ -112,6 +119,9 @@ export default {
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
+    },
+    swiperLoad() {
+      console.log(this.$refs.tabControl.$el.offsetTop);
     },
 
     // 数据请求
@@ -143,10 +153,6 @@ export default {
 }
 .nav_home {
   background: var(--color-tint);
-}
-.tar_control {
-  position: sticky;
-  top: 44px;
 }
 .content {
   position: absolute;

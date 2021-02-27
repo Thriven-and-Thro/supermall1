@@ -18,36 +18,46 @@ export default {
   props: {
     probeType: {
       type: Number,
-      default() {
-        return 0;
-      },
+      default: 0,
     },
     pullUpLoad: {
       type: Boolean,
-      default() {
-        return false;
-      },
+      default: false,
     },
   },
   mounted() {
+    // 创建BScroll对象
     this.scroll = new BSroll(this.$refs.wrapper, {
       click: true,
       probeType: this.probeType,
       pullUpLoad: this.pullUpLoad,
+      // 解决不能拖动问题
+      observeDOM: true,
+      observeImage: true,
     });
-    this.scroll.on("scroll", (position) => {
-      this.$emit("scroll", position);
-    });
-    this.scroll.on("pullingUp", () => {
-      this.$emit("pullingUp");
-    });
+    // 监听滚动的位置
+    if (this.probeType === 2 || this.probeType === 3) {
+      this.scroll.on("scroll", (position) => {
+        this.$emit("scroll", position);
+      });
+    }
+    // 监听下拉底部
+    if (this.pullUpLoad) {
+      this.scroll.on("pullingUp", () => {
+        this.$emit("pullingUp");
+      });
+    }
   },
   methods: {
     scrollTo(x, y, time = 300) {
-      this.scroll.scrollTo(x, y, time);
+      this.scroll && this.scroll.scrollTo(x, y, time);
     },
     finishPullUp() {
-      this.scroll.finishPullUp();
+      this.scroll && this.scroll.finishPullUp();
+    },
+    // 事件总线
+    refresh() {
+      this.scroll && this.scroll.refresh();
     },
   },
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="good_list_item">
     <a :href="goodsItem.clientUrl">
-      <img :src="goodsItem.show.img" alt="" />
+      <img :src="goodsItem.show.img" alt="" @load="imageLoad" />
       <div class="good_list_item_info">
         <p>{{ goodsItem.title }}</p>
         <span class="price">{{ goodsItem.orgPrice }}</span>
@@ -22,6 +22,12 @@ export default {
       },
     },
   },
+  methods: {
+    // 事件总线
+    imageLoad() {
+      this.$bus.$emit("itemImageLoad");
+    },
+  },
 };
 </script>
 
@@ -39,7 +45,7 @@ export default {
   border-radius: 2.5%;
 }
 .good_list_item_info {
-  padding-bottom: 0.28rem;
+  padding: 0.28rem 0;
 }
 .good_list_item p {
   /*1. 先强制一行内显示文本*/

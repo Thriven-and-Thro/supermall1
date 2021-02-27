@@ -30,6 +30,7 @@ export default {
     SwiperItem,
   },
   methods: {
+    // 监听轮播图加载完与否
     imgLoad() {
       if (!this.isLoad) {
         this.$emit("swiperImgLoad");

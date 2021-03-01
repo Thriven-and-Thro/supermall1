@@ -59,6 +59,10 @@ export default {
     refresh() {
       this.scroll && this.scroll.refresh();
     },
+    // 回到原来页面原来位置
+    getScrollY() {
+      return this.scroll ? this.scroll.y : 0;
+    },
   },
 };
 </script>

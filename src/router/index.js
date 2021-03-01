@@ -6,6 +6,7 @@ const Home = () => import('views/home/home.vue')
 const Notice = () => import('views/notice/notice.vue')
 const Profile = () => import('views/profile/profile.vue')
 const Mine = () => import('views/mine/mine.vue')
+const Detail = () => import('views/detail/Detail.vue')
 
 Vue.use(VueRouter);
 
@@ -30,7 +31,11 @@ const routes = [
   {
     path: '/mine',
     component: Mine
-  }
+  },
+  {
+    path: '/detail/:iid',
+    component: Detail
+  },
 ]
 
 const router = new VueRouter({

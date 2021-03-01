@@ -5,6 +5,13 @@
         <h2>首页</h2>
       </template>
     </nav-bar>
+    <tab-control
+      :titles="['流行', '新款', '精选']"
+      @item_click="item_click"
+      ref="tabControl1"
+      class="tab_control"
+      v-show="isShowTabControl"
+    />
     <scroll
       class="content"
       ref="scroll"
@@ -14,13 +21,13 @@
       @pullingUp="loadMore"
     >
       <!-- 绑定数据，动态获取 -->
-      <home-swiper :banners="banners" @swiperImgLoad="swiperLoad" />
+      <home-swiper :banners="banners" @imgLoad="swiperLoad" />
       <home-recommend-view :recommends="recommends" />
       <feature-view />
       <tab-control
         :titles="['流行', '新款', '精选']"
         @item_click="item_click"
-        ref="tabControl"
+        ref="tabControl2"
       />
       <!-- 参数太长可封装为计算属性 -->
       <good-list :goods="showGoods" />
@@ -39,12 +46,12 @@ import FeatureView from "./childComp/FeatureView.vue";
 import NavBar from "components/common/navbar/NavBar.vue";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodList from "components/content/goods/GoodList.vue";
-import Scroll from "../../components/common/scroll/Scroll.vue";
-import BackTop from "../../components/content/backTop/BackTop.vue";
+import Scroll from "components/common/scroll/Scroll.vue";
+import BackTop from "components/content/backTop/BackTop.vue";
+import { itemListenerMixin } from "common/mixin.js";
 
 //1.引入封装的网络请求
 import { getHomeMulitData, getHomeGoods } from "network/home.js";
-import { debounce } from "common/utils.js";
 
 export default {
   name: "home",
@@ -71,8 +78,12 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
+      tabOffsetTop: 0,
+      isShowTabControl: false,
+      scrollY: 0,
     };
   },
+  mixins: [itemListenerMixin],
 
   computed: {
     showGoods() {
@@ -87,12 +98,14 @@ export default {
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
   },
-  mounted() {
-    // 事件总线
-    const refresh = debounce(this.$refs.scroll.refresh, 500);
-    this.$bus.$on("itemImageLoad", () => {
-      refresh();
-    });
+  mounted() {},
+
+  activated() {
+    this.$refs.scroll.refresh();
+    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+  },
+  deactivated() {
+    this.scrollY = this.$refs.scroll.getScrollY();
   },
 
   methods: {
@@ -110,18 +123,23 @@ export default {
           this.currentType = "sell";
           break;
       }
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     backTopClick() {
       this.$refs.scroll.scrollTo(0, 0, 500);
     },
     contentScroll(position) {
+      // 返回顶部的滚动位置方法
       this.isShowBackTop = position.y < -1000;
+      // 栏目的滚动位置方法
+      this.isShowTabControl = position.y < -this.tabOffsetTop;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
     },
     swiperLoad() {
-      console.log(this.$refs.tabControl.$el.offsetTop);
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     },
 
     // 数据请求
@@ -148,7 +166,6 @@ export default {
 <style scoped>
 #home {
   position: relative;
-  padding-top: 44px;
   height: 100vh;
 }
 .nav_home {
@@ -160,5 +177,9 @@ export default {
   bottom: 49px;
   right: 0;
   left: 0;
+}
+.tab_control {
+  position: relative;
+  z-index: 9;
 }
 </style>

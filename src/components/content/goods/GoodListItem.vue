@@ -1,13 +1,11 @@
 <template>
-  <div class="good_list_item">
-    <a :href="goodsItem.clientUrl">
-      <img :src="goodsItem.show.img" alt="" @load="imageLoad" />
-      <div class="good_list_item_info">
-        <p>{{ goodsItem.title }}</p>
-        <span class="price">{{ goodsItem.orgPrice }}</span>
-        <span class="cfav">{{ goodsItem.cfav }}</span>
-      </div>
-    </a>
+  <div class="good_list_item" @click="goodsItemClick">
+    <img :src="showImg" alt="" @load="imageLoad" />
+    <div class="good_list_item_info">
+      <p>{{ goodsItem.title }}</p>
+      <span class="price">{{ prices }}</span>
+      <span class="cfav">{{ goodsItem.cfav }}</span>
+    </div>
   </div>
 </template>
 
@@ -22,10 +20,21 @@ export default {
       },
     },
   },
+  computed: {
+    showImg() {
+      return this.goodsItem.image || this.goodsItem.show.img;
+    },
+    prices() {
+      return this.goodsItem.orgPrice || this.goodsItem.discountPrice;
+    },
+  },
   methods: {
     // 事件总线
     imageLoad() {
       this.$bus.$emit("itemImageLoad");
+    },
+    goodsItemClick() {
+      this.$router.push("/detail/" + this.goodsItem.iid);
     },
   },
 };
@@ -35,9 +44,8 @@ export default {
 .good_list_item {
   overflow: hidden;
   text-align: center;
-}
-.good_list_item a {
   font-size: 1rem;
+  line-height: 1.3rem;
   color: var(--color-text);
 }
 .good_list_item img {
@@ -67,7 +75,7 @@ export default {
   content: "";
   display: block;
   position: absolute;
-  top: 0;
+  top: 2px;
   left: 1rem;
   width: 1rem;
   height: 1rem;

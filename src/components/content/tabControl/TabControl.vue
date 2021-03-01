@@ -41,7 +41,6 @@ export default {
 .tab-control {
   display: flex;
   background-color: var(--color-background);
-  z-index: 9;
 }
 .tab-control > div {
   flex: 1;

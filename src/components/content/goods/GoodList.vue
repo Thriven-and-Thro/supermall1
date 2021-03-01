@@ -10,10 +10,10 @@
 import GoodListItem from "./GoodListItem.vue";
 
 export default {
+  name: "GoodList",
   components: {
     GoodListItem,
   },
-  name: "GoodList",
   props: {
     goods: {
       type: Array,
@@ -21,6 +21,9 @@ export default {
         return [];
       },
     },
+  },
+  created() {
+    console.log(this.goods);
   },
 };
 </script>

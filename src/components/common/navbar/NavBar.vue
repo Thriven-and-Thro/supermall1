@@ -20,21 +20,23 @@ export default {
 
 <style scoped>
 .nav-bar {
+  /* 使用了better-scroll的局部滚动
   position: fixed;
-  display: flex;
-  top: 0;
+  top: 0; */
+  position: relative;
   width: 100%;
   height: 44px;
+  display: flex;
   line-height: 44px;
   font-size: 1rem;
   color: #fff;
   text-align: center;
   box-shadow: 0 0.04rem 0.04rem rgba(100, 100, 100, 0.1);
-  z-index: 2;
+  z-index: 9;
 }
 .left,
 .right {
-  width: 1.76rem;
+  width: 60px;
 }
 .center {
   flex: 1;

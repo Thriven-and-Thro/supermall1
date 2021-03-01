@@ -43,7 +43,7 @@ export default {
       default: true,
     },
   },
-  data: function () {
+  data() {
     return {
       slideCount: 0, // 元素个数
       totalWidth: 0, // swiper的宽度
@@ -52,15 +52,22 @@ export default {
       scrolling: false, // 是否正在滚动
     };
   },
-  mounted: function () {
-    // 1.操作DOM, 在前后添加Slide
-    setTimeout(() => {
+  // 加载未完成时会产生bug
+  // mounted() {
+  //   // 1.操作DOM, 在前后添加Slide
+  //   setTimeout(() => {
+  //     this.handleDom();
+  //     // 2.开启定时器
+  //     this.startTimer();
+  //   }, 400);
+  // },
+  methods: {
+    // 修复bug，图片加载完通过该函数开启轮播图
+    star() {
       this.handleDom();
       // 2.开启定时器
       this.startTimer();
-    }, 100);
-  },
-  methods: {
+    },
     /**
      * 定时器操作
      */

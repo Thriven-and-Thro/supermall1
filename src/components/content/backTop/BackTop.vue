@@ -22,6 +22,7 @@ export default {
   border-radius: 50%;
   border: 0.04rem solid var(--color-tint);
   box-shadow: 0.04rem 0.04rem rgba(100, 100, 100, 0.1);
+  z-index: 12;
 }
 .back_top img {
   width: 80%;

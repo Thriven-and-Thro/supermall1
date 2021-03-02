@@ -47,8 +47,8 @@ import NavBar from "components/common/navbar/NavBar.vue";
 import TabControl from "components/content/tabControl/TabControl.vue";
 import GoodList from "components/content/goods/GoodList.vue";
 import Scroll from "components/common/scroll/Scroll.vue";
-import BackTop from "components/content/backTop/BackTop.vue";
-import { itemListenerMixin } from "common/mixin.js";
+// import BackTop from "components/content/backTop/BackTop.vue";
+import { itemListenerMixin, backTopMixin } from "common/mixin.js";
 
 //1.引入封装的网络请求
 import { getHomeMulitData, getHomeGoods } from "network/home.js";
@@ -63,7 +63,7 @@ export default {
     TabControl,
     GoodList,
     Scroll,
-    BackTop,
+    // BackTop,
   },
 
   //3.使用data保存请求的数据
@@ -77,13 +77,13 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop: false,
+      // isShowBackTop: false,
       tabOffsetTop: 0,
       isShowTabControl: false,
       scrollY: 0,
     };
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
 
   computed: {
     showGoods() {
@@ -126,12 +126,13 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backTopClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500);
-    },
+    // backTopClick() {
+    //   this.$refs.scroll.scrollTo(0, 0, 500);
+    // },
     contentScroll(position) {
-      // 返回顶部的滚动位置方法
-      this.isShowBackTop = position.y < -1000;
+      // 返回顶部的滚动位置方法（调用混入中的方法）
+      // this.isShowBackTop = position.y < -1000;
+      this.listenShowBackTop(position);
       // 栏目的滚动位置方法
       this.isShowTabControl = position.y < -this.tabOffsetTop;
     },

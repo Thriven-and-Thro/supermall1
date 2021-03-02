@@ -11,6 +11,8 @@
       <!-- 组件复用 -->
       <good-list :goods="recommend" ref="recommend" />
     </scroll>
+    <detail-bottom-bar class="detail_bottom_bar" />
+    <back-top @click.native="backTopClick" v-show="isShowBackTop" />
   </div>
 </template>
 
@@ -22,10 +24,11 @@ import DetailShopInfo from "./childComps/DetailShopInfo.vue";
 import DetailGoodsInfo from "./childComps/DetailGoodsInfo.vue";
 import DetailParamInfo from "./childComps/DetailParamInfo.vue";
 import DetailCommentInfo from "./childComps/DetailCommentInfo.vue";
+import DetailBottomBar from "./childComps/DetailBottomBar.vue";
 
 import Scroll from "components/common/scroll/Scroll.vue";
 import GoodList from "components/content/goods/GoodList.vue";
-import { itemListenerMixin } from "common/mixin.js";
+import { itemListenerMixin, backTopMixin } from "common/mixin.js";
 import { debounce } from "common/utils.js";
 
 import {
@@ -61,10 +64,11 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
+    DetailBottomBar,
     GoodList,
     Scroll,
   },
-  mixins: [itemListenerMixin],
+  mixins: [itemListenerMixin, backTopMixin],
   created() {
     this.iid = this.$route.params.iid;
     getDetail(this.iid).then((res) => {
@@ -128,6 +132,7 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex;
         }
       }
+      this.listenShowBackTop(position);
     },
   },
 };
@@ -135,8 +140,11 @@ export default {
 
 <style scoped>
 #detail {
+  position: relative;
   height: 100vh;
+  z-index: 10;
   overflow: hidden;
+  background-color: #fff;
 }
 .detail_nav_bar {
   position: relative;
@@ -145,8 +153,14 @@ export default {
 }
 .content {
   position: relative;
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
   background-color: var(--color-background);
   z-index: 10;
+}
+.detail_bottom_bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 11;
 }
 </style>

@@ -44,6 +44,7 @@ export default {
 <style scoped>
 .tabar_text {
   flex: 1;
+  padding-top: 3px;
   text-align: center;
   font-size: 0.8rem;
 }

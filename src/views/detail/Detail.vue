@@ -7,11 +7,11 @@
       <detail-shop-info :shop="shop" />
       <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad" />
       <detail-param-info :goods-param="goodsParam" ref="params" />
-      <detail-comment-info :commentInfo="commentInfo" ref="comment" />
+      <detail-comment-info :comment-info="commentInfo" ref="comment" />
       <!-- 组件复用 -->
       <good-list :goods="recommend" ref="recommend" />
     </scroll>
-    <detail-bottom-bar class="detail_bottom_bar" />
+    <detail-bottom-bar class="detail_bottom_bar" @addToCart="addToCart" />
     <back-top @click.native="backTopClick" v-show="isShowBackTop" />
   </div>
 </template>
@@ -38,6 +38,8 @@ import {
   GoodsParam,
   getRecommend,
 } from "network/detail";
+
+import { mapActions } from "vuex";
 
 export default {
   name: "Detail",
@@ -103,10 +105,12 @@ export default {
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
       // 末尾加一个无限大的数字方便位置判断
       this.themeTopYs.push(Number.MAX_VALUE);
-    }, 200);
+    }, 10);
   },
   mounted() {},
   methods: {
+    // 辅助函数
+    ...mapActions(["addCart"]),
     // 监听图片加载
     imgLoad() {
       this.$refs.scroll.refresh();
@@ -133,6 +137,20 @@ export default {
         }
       }
       this.listenShowBackTop(position);
+    },
+    addToCart() {
+      // 将商品信息存放至数组
+      const product = {};
+      product.image = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.goods.desc;
+      product.price = this.goods.realPrice;
+      product.iid = this.iid;
+      // 提交到vuex并返回promise
+      // 使用辅助函数可像组件方法一样调用
+      this.addCart(product).then((res) => {
+        this.$toast.show(res);
+      });
     },
   },
 };

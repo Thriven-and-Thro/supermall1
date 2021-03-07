@@ -28,10 +28,9 @@ export default {
   height: 44px;
   display: flex;
   line-height: 44px;
-  font-size: 1rem;
+  font-size: 14px;
   color: #fff;
   text-align: center;
-  box-shadow: 0 0.04rem 0.04rem rgba(100, 100, 100, 0.1);
   z-index: 9;
 }
 .left,

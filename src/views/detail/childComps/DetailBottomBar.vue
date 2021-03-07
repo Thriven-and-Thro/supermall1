@@ -12,7 +12,7 @@
       <img src="~assets/img/buttombar/收藏.png" alt="" />
       <div>收藏</div>
     </div>
-    <div class="detail_bar_push">加入购物车</div>
+    <div class="detail_bar_push" @click="addToCart">加入购物车</div>
 
     <div class="detail_bar_buy">立即购买</div>
   </div>
@@ -21,6 +21,11 @@
 <script>
 export default {
   name: "DetailBottomBar",
+  methods: {
+    addToCart() {
+      this.$emit("addToCart");
+    },
+  },
 };
 </script>
 

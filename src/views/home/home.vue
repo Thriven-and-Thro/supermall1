@@ -2,7 +2,7 @@
   <div id="home">
     <nav-bar class="nav_home">
       <template v-slot:center>
-        <h2>首页</h2>
+        <div>首页</div>
       </template>
     </nav-bar>
     <tab-control
@@ -170,7 +170,11 @@ export default {
   height: 100vh;
 }
 .nav_home {
-  background: var(--color-tint);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-high-text);
+  background: #fff;
+  border-bottom: 2px solid var(--color-tint);
 }
 .content {
   position: absolute;

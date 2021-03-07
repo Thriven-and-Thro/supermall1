@@ -15,7 +15,7 @@ export default {
 <style scoped>
 .feature {
   width: 100%;
-  padding-top: 0.714286rem;
+  padding-top: 10px;
   background: var(--color-background);
 }
 .feature img {

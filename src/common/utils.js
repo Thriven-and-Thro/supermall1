@@ -9,6 +9,7 @@ export function debounce(func, delay) {
   };
 }
 
+// 时间戳转换函数的封装
 export function formatDate(date, fmt) {
   // 1.获取年份
   if (/(y+)/.test(fmt)) {

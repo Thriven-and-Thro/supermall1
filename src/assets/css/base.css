@@ -1,6 +1,7 @@
 /* 引入normalize.css */
 @import 'normalize.css';
-
+/* 该项目中的通用样式 */
+/* 在根节点上定义变量 */
 :root {
   --color-text: #333;
   --color-high-text: #C84275;
@@ -49,7 +50,7 @@ a {
 button,
 input {
     /* "\5B8B\4F53" 就是宋体的意思 这样浏览器兼容性比较好 */
-    font-family: Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
+    font-family: 14px/1 Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
     /* 默认有灰色边框我们需要手动去掉 */
     border: 0; 
     outline: none;
